@@ -19,24 +19,27 @@ const makePoemHTML = (data) => {
   const makeH3 = makeTag("h3");
   const makeP = makeTag("p");
   const makeEM = makeTag("em");
-  
+
   //Ended up just using join to add <br/>
   // const makeBR = (str) => str + "<br />";
   const title = makeH2(data[0].title);
   const author = pipe(makeEM, makeH3)(`by ${data[0].author}`); //Used pipe once
-  
+
   //lines "" add p tag
   //Convert lines array into one string with <br/> inbetween
-  const lines = data[0].lines.join("<br/>"); 
-  
+  const lines = data[0].lines.join("<br/>");
+
   //New array called stanzas, elements split where <br><br> is (where "" is in )
-  const stanzas = lines.split("<br/><br/>"); 
+  const stanzas = lines.split("<br/><br/>");
 
   //each stanza, make a p tag for it
-  let poem = ""; 
-  for (s of stanzas) {
-    poem += makeP(s);
-  }
+  // let poem = "";
+  // for (s of stanzas) {
+  //   poem += makeP(s);
+  // }
+
+  //Technically could do for of (like above) or map, then join into one string
+  const poem = stanzas.map(makeP).join("");
   return title + author + poem;
 };
 
