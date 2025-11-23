@@ -14,32 +14,29 @@ const makeTag = (tag) => (str) => `<${tag}>${str}</${tag}>`;
 
 // complete this function
 const makePoemHTML = (data) => {
-  // const makeh2 = makeTag("h2")(data[0].title);
-  // console.log(data);
-  // console.log(data[0].title);
-  // return makeh2;
+  //Use makeTag at least once
   const makeH2 = makeTag("h2");
   const makeH3 = makeTag("h3");
   const makeP = makeTag("p");
-  const makeBR = (str) => str + "<br />";
   const makeEM = makeTag("em");
-
+  
+  //Ended up just using join to add <br/>
+  // const makeBR = (str) => str + "<br />";
   const title = makeH2(data[0].title);
-  const author = pipe(makeEM, makeH3)(`by ${data[0].author}`);
-  // const lines = (makeP(data[0].lines));
+  const author = pipe(makeEM, makeH3)(`by ${data[0].author}`); //Used pipe once
+  
   //lines "" add p tag
-  const lines = data[0].lines.join("<br/>"); //convert line array into one string with <br/> inbetween
-  const stanzas = lines.split("<br/><br/>"); //new array, elements split where <br><br> (where "") is
+  //Convert lines array into one string with <br/> inbetween
+  const lines = data[0].lines.join("<br/>"); 
+  
+  //New array called stanzas, elements split where <br><br> is (where "" is in )
+  const stanzas = lines.split("<br/><br/>"); 
 
-  //eac
+  //each stanza, make a p tag for it
   let poem = ""; 
   for (s of stanzas) {
     poem += makeP(s);
   }
-  console.log(lines);
-  console.log(stanzas);
-  console.log(poem);
-  console.log(data);
   return title + author + poem;
 };
 
